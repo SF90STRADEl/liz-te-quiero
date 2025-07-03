@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Corazón Vibrante</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap" rel="stylesheet"/>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            min-height: 100vh;
+            align-items: center;
+            justify-content: center;
+            font-family: "Poppins", serif;
+            background-color: #0b1522;
+        }
+
+        .heart {
+            height: 200px;
+            width: 200px;
+            background-color: #f20044;
+            position: relative;
+            transform: rotate(-45deg);
+            box-shadow: -10px 10px 90px #f20044;
+            animation: heart 0.6s linear infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;  
+            font-size: 12px; 
+            text-align: center;
+            padding: 10px;
+        }
+
+        .heart p {
+            position: absolute;
+            z-index: 9999;
+            width: 100%;
+            transform: rotate(45deg) translate(0,-50px);
+        }
+
+        @keyframes heart {
+            0% {
+                transform: rotate(-45deg) scale(1.07);
+            }
+            80% {
+                transform: rotate(-45deg) scale(1.0);
+            }
+            100% {
+                transform: rotate(-45deg) scale(0.8);
+            }
+        }
+
+        .heart::before {
+            content: "";
+            position: absolute;
+            height: 200px;
+            width: 200px;
+            background-color: #f20044;
+            top: -50%;
+            border-radius: 100px;
+            box-shadow: -10px -10px 90px #f20044;
+        }
+
+        .heart::after {
+            content: "";
+            position: absolute;
+            height: 200px;
+            width: 200px;
+            background-color: #f20044;
+            right: -50%;
+            border-radius: 100px;
+            box-shadow: 10px 10px 90px #f20044;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Audio oculto -->
+    <audio id="musica" src="barca.mp3" type="audio/mpeg" loop></audio>
+
+    <!-- Corazón con mensaje -->
+    <div class="heart">
+        <p>Liz tiene un hermoso corazón y es probablemente la niña más linda que he conocido, simplemente perfecta ❤️✨</p>
+    </div>
+
+    <!-- Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.3.1/dist/confetti.browser.min.js"></script>
+    <script>
+        setInterval(() => {
+            confetti({
+                particleCount: 100,
+                spread: 60,
+                origin: { x: 0.5, y: 0.5 }
+            });
+        }, 2000);
+    </script>
+
+    <!-- Iniciar música con clic -->
+    <script>
+        const musica = document.getElementById('musica');
+
+        const iniciarMusica = () => {
+            musica.play().catch(err => {
+                console.warn('Autoplay bloqueado:', err);
+            });
+
+            window.removeEventListener('click', iniciarMusica);
+        };
+
+        window.addEventListener('click', iniciarMusica);
+    </script>
+</body>
+</html>
